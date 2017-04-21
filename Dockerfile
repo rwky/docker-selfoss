@@ -2,7 +2,8 @@ FROM php:apache
 ENV COMPOSER_ALLOW_SUPERUSER 1 # Setup the Composer installer 
 RUN a2enmod headers rewrite && \
     apt-get update && \
-    apt-get install -y git curl unzip libpng12-dev libpq-dev && \
+    apt-get install -y git curl unzip libpng12-dev libpq-dev libjpeg62-turbo-dev libfreetype6-dev && \
+    docker-php-ext-configure gd  --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
     docker-php-ext-install gd mbstring pdo_pgsql pdo_mysql
 
 RUN curl -o /tmp/composer-setup.php https://getcomposer.org/installer \
